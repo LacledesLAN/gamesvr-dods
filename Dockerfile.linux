@@ -1,0 +1,28 @@
+FROM lacledeslan/gamesvr:srcds.linux
+
+MAINTAINER Laclede's LAN <contact@lacledeslan.com>
+
+ENV SERVER_NAME="gamesvr-dods.linux"
+
+WORKDIR /app/bin/
+
+# Install Day of Defeat: Source
+RUN useradd \
+		--shell /bin/bash \
+		DODS &&\
+	# Create output directory &&\
+		mkdir /app/bin --parents &&\
+	# Download &&\
+		/app/steamcmd/steamcmd.sh \
+			+login anonymous \
+			+force_install_dir /app/bin/ \
+			+app_update 232290 validate \
+			+quit &&\
+	# Set permissions &&\
+		chown -R DODS /app/bin
+	
+COPY ./dist/ /app/bin/
+
+USER DODS
+
+CMD ["/bin/bash"]
