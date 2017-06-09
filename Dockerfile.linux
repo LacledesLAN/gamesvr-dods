@@ -6,26 +6,30 @@ ENV IMAGE="gamesvr-srcds-dods:linux"
 
 HEALTHCHECK NONE
 
+# Set up user
+RUN useradd `
+		--home /app/bin `
+		--gid srcds `
+		--shell /bin/bash `
+		--system `
+		DODS &&`
+	chown -R DODS:srcds /app/bin
+
+USER DODS
+
 # Copy files (if any) from the build-cache
 COPY ./build-cache/ /app/bin/
 
-# Install Day of Defeat: Source
-RUN useradd \
-		--shell /bin/bash \
-		DODS &&\
-	# Create output directory &&\
-		mkdir /app/bin --parents &&\
-	# Download &&\
-		/app/steamcmd/steamcmd.sh \
-			+login anonymous \
-			+force_install_dir /app/bin/ \
-			+app_update 232290 validate \
-			+quit &&\
-	# Set permissions &&\
-		chown -R DODS /app/bin
-
-USER DODS
+# Install CS:GO
+RUN echo "Downloading CSGO via SteamCMD" &&`
+		/app/steamcmd/steamcmd.sh `
+			+login anonymous `
+			+force_install_dir /app/bin/ `
+			+app_update 232290 validate `
+			+quit
 
 WORKDIR /app/bin/
 
 CMD ["/bin/bash"]
+
+ONBUILD USER root
