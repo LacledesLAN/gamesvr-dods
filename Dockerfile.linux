@@ -1,3 +1,5 @@
+# escape=`
+
 FROM lacledeslan/gamesvr-srcds:linux
 
 LABEL maintainer "Laclede's LAN <contact@lacledeslan.com>"
@@ -8,12 +10,12 @@ HEALTHCHECK NONE
 
 # Set up user
 RUN useradd `
-		--home /app/bin `
-		--gid srcds `
-		--shell /bin/bash `
-		--system `
-		DODS &&`
-	chown -R DODS:srcds /app/bin
+        --home /app/bin `
+        --gid srcds `
+        --shell /bin/bash `
+        --system `
+        DODS &&`
+    chown -R DODS:srcds /app/bin
 
 USER DODS
 
@@ -22,11 +24,11 @@ COPY ./build-cache/ /app/bin/
 
 # Install CS:GO
 RUN echo "Downloading CSGO via SteamCMD" &&`
-		/app/steamcmd/steamcmd.sh `
-			+login anonymous `
-			+force_install_dir /app/bin/ `
-			+app_update 232290 validate `
-			+quit
+        /app/steamcmd/steamcmd.sh `
+            +login anonymous `
+            +force_install_dir /app/bin/ `
+            +app_update 232290 validate `
+            +quit
 
 WORKDIR /app/bin/
 
