@@ -1,10 +1,23 @@
-# gamesvr-srcds-dods
-"Content-level" docker image for LL [Day of Defeat: Source](http://www.dayofdefeat.com/) servers.
+# Day of Defeat Source Server in Docker
 
-# Linux Container
-[![](https://images.microbadger.com/badges/image/lacledeslan/gamesvr-srcds-dods-freeplay:linux.svg)](https://microbadger.com/images/lacledeslan/gamesvr-srcds-dods-freeplay:linux "Get your own image badge on microbadger.com")
+## Linux
+
+[![](https://images.microbadger.com/badges/version/lacledeslan/gamesvr-dods.svg)](https://microbadger.com/images/lacledeslan/gamesvr-dods "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/lacledeslan/gamesvr-dods.svg)](https://microbadger.com/images/lacledeslan/gamesvr-dods "Get your own image badge on microbadger.com")
+
+**Download**
 ```
-docker pull lacledeslan/gamesvr-srcds-dods:linux
+docker pull lacledeslan/gamesvr-dods
+```
+
+**Run self tests**
+```
+NOT YET IMPLEMENTED
+```
+
+**Run simple interactive server**
+```
+docker run -t --rm --net=host lacledeslan/gamesvr-dods ./srcds_run -game dod +map dod_avalanche -console -usercon +sv_lan 1
 ```
 
 # Build Triggers
