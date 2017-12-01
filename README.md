@@ -1,4 +1,4 @@
-# Day of Defeat Source Server in Docker
+# Day of Defeat Source Dedicated Server in Docker
 
 ## Linux
 
@@ -10,17 +10,12 @@
 docker pull lacledeslan/gamesvr-dods
 ```
 
-**Run self tests**
+**Run Simple Interactive Server**
 ```
-NOT YET IMPLEMENTED
-```
-
-**Run simple interactive server**
-```
-docker run -t --rm --net=host lacledeslan/gamesvr-dods ./srcds_run -game dod +map dod_avalanche -console -usercon +sv_lan 1
+docker run -it --rm --net=host lacledeslan/gamesvr-dods ./srcds_run -game dod +map dod_avalanche +sv_lan 1
 ```
 
-# Build Triggers
-Automated builds of this image can be triggered by the following sources:
-* [Commits on GitHub](https://github.com/LacledesLAN/gamesvr-srcds-dods)
-* [Builds of llgameserverbot/dods-watcher](https://hub.docker.com/r/llgameserverbot/dods-watcher/)
+**Run Self Tests**
+```
+docker run -t --rm --net=host lacledeslan/gamesvr-dods ./ll-tests/gamesvr-dods.sh
+```
