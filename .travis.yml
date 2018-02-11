@@ -15,7 +15,7 @@ before_install:
 
 script:
   - docker version
-  - docker build --no-cache --tag lltest/gamesvr-dods --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT="$TRAVIS_COMMIT" ./linux
+  - docker build --no-cache --tag lltest/gamesvr-dods --tag lacledeslan/gamesvr-dods --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT="$TRAVIS_COMMIT" ./linux
   - docker run -it --rm lltest/gamesvr-dods ./ll-tests/gamesvr-dods.sh
 
 notifications:
