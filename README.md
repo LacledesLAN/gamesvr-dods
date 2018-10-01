@@ -11,19 +11,21 @@ This repository is maintained by [Laclede's LAN](https://lacledeslan.com). Its c
 [![](https://images.microbadger.com/badges/version/lacledeslan/gamesvr-dods.svg)](https://microbadger.com/images/lacledeslan/gamesvr-dods "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/lacledeslan/gamesvr-dods.svg)](https://microbadger.com/images/lacledeslan/gamesvr-dods "Get your own image badge on microbadger.com")
 
-**Download**
+### Download
 
 ```shell
 docker pull lacledeslan/gamesvr-dods;
 ```
 
-**Run Self Tests**
+### Run Self Tests
+
+The image includes a test script that can be used to verify its contents. No changes or pull-requests will be accepted to this repository if any tests fail.
 
 ```shell
 docker run -t --rm --net=host lacledeslan/gamesvr-dods ./ll-tests/gamesvr-dods.sh;
 ```
 
-**Run Simple Interactive Server**
+### Run Simple Interactive Server
 
 ```shell
 docker run -it --rm --net=host lacledeslan/gamesvr-dods ./srcds_run -game dod +map dod_avalanche +sv_lan 1
