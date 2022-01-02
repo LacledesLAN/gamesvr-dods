@@ -2,13 +2,13 @@
 FROM lacledeslan/steamcmd:linux as dods-builder
 
 # Copy cached build files (if any)
-COPY ./build-cache /output
+COPY /build-cache /output
 
 # Download Day of Defeat: Source
-RUN /app/steamcmd.sh +login anonymous +force_install_dir /output +app_update 232290 validate +quit;
+RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 232290 validate +quit;
 
 #=======================================================================
-FROM debian:stretch-slim
+FROM debian:bullseye-slim
 
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
@@ -17,7 +17,7 @@ HEALTHCHECK NONE
 
 RUN dpkg --add-architecture i386 &&`
     apt-get update && apt-get install -y `
-        ca-certificates lib32gcc1 lib32tinfo5 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
+        ca-certificates lib32gcc-s1 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
@@ -38,7 +38,7 @@ RUN useradd --home /app --gid root --system DODS &&`
 
 COPY --chown=DODS:root --from=dods-builder /output /app
 
-COPY --chown=DODS:root ./ll-tests /app/ll-tests
+COPY --chown=DODS:root /dist/linux/ll-tests /app/ll-tests
 
 RUN chmod +x /app/ll-tests/*.sh;
 
