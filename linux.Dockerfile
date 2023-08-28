@@ -19,7 +19,7 @@ HEALTHCHECK NONE
 
 RUN dpkg --add-architecture i386 &&`
     apt-get update && apt-get install -y `
-        ca-certificates lib32gcc-s1 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
+        ca-certificates lib32gcc-s1 libncurses5:i386 libsdl2-2.0-0:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 

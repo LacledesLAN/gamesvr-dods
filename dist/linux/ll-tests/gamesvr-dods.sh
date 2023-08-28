@@ -151,6 +151,7 @@ should_lack 'Please install (lib32tinfo5 / ncurses-libs.i686 / equivalent) to en
 should_have 'server_srv.so loaded for "Day of Defeat"' 'srcds_run loaded DOD:Source';
 should_have 'Server is hibernating' 'srcds_run succesfully hibernated';
 should_echo "sv_cheats" '"sv_cheats" = "0"';
+should_lack "Warning: failed to init SDL thread priority manager: SDL not found" 'SDL thread priority manager is not missing';
 #####################################################################################################
 #####################################################################################################
 
