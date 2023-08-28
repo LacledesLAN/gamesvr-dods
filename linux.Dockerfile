@@ -7,6 +7,8 @@ COPY /build-cache /output
 # Download Day of Defeat: Source
 RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 232290 validate +quit;
 
+COPY ./dist/linux/ll-tests /output/ll-tests
+
 #=======================================================================
 FROM debian:bookworm-slim
 
@@ -33,20 +35,16 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
 
 # Set up Enviornment
 RUN useradd --home /app --gid root --system DODS &&`
-    mkdir -p /app/ll-tests &&`
+    mkdir -p /app/.steam/sdk32 &&`
     chown DODS:root -R /app;
 
 COPY --chown=DODS:root --from=dods-builder /output /app
 
-COPY --chown=DODS:root /dist/linux/ll-tests /app/ll-tests
-
-RUN chmod +x /app/ll-tests/*.sh;
+RUN chmod +x /app/ll-tests/*.sh &&`
+    echo $'\n\nLinking steamclient.so to prevent srcds_run errors' &&`
+        ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 USER DODS
-
-RUN echo $'\n\nLinking steamclient.so to prevent srcds_run errors' &&`
-        mkdir --parents /app/.steam/sdk32 &&`
-        ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 WORKDIR /app
 
